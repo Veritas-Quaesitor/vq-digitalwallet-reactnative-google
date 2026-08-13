@@ -1,8 +1,25 @@
-# VQ React Native Google Pay SDK
+# 🚀 VQ React Native Google Pay SDK
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Platform: Android](https://img.shields.io/badge/platform-Android-3DDC84.svg)](#supported-environment)
+[![React Native](https://img.shields.io/badge/React%20Native-0.85--0.86-61DAFB.svg)](#supported-environment)
+[![Google Pay](https://img.shields.io/badge/Google%20Pay-Android-4285F4.svg)](#managed-button-quick-start)
 
 Android-only React Native SDK for merchants accepting Google Pay through Veritas Quaesitor.
 
 > **Release status:** `0.1.0` is under gated development and is not production-ready. SDK package integrity, isolated-consumer installation, and Google Pay TEST flow are verified. UAT validation, production approval/signing, and release sign-off remain release-gate work.
+
+## ✨ Features
+
+- 📱 Native Android Google Pay sheet and Google-backed PayButton for React Native
+- 🧩 Typed merchant configuration and payment input validation
+- 🔐 Exact opaque-token transport contract with no mobile storage or decoding
+- 🛡️ Safe structured errors and opt-in redacted observability
+- 🔄 Runtime button presentation options; immutable build-time Google environment
+
+## 📚 In this guide
+
+[Install](#install-the-verified-package) · [Android setup](#android-project-checklist) · [TEST or PRODUCTION](#select-google-pay-test-or-production) · [Quick start](#managed-button-quick-start) · [Backend handoff](#send-the-result-to-the-merchant-backend) · [Troubleshooting](#operating-caveats-and-troubleshooting)
 
 ## Supported environment
 
@@ -10,7 +27,7 @@ Android-only React Native SDK for merchants accepting Google Pay through Veritas
 - React `19.x`
 - Android API 23 or newer; compile SDK 36 or newer
 - JDK 17 baseline for Android builds; newer compatible JDKs may be used when supported by the merchant application's Gradle and React Native stack
-- Public source repository; controlled `.tgz` package-artifact delivery
+- Public source repository and public GitHub Release `.tgz` delivery
 - No public npm publication
 - Google Play Services Wallet `20.0.0`
 
@@ -18,7 +35,7 @@ Expo Go, React Native's legacy architecture, iOS, and Apple Pay are not supporte
 
 ## Install the verified package
 
-From an SDK package artifact supplied through the approved controlled channel:
+From the GitHub Release asset for the selected SDK version:
 
 ```shell
 npm install ./vq-digitalwallet-reactnative-google-0.1.0.tgz
@@ -273,4 +290,9 @@ npm run verify
 npm run check:android-package
 ```
 
-Android compilation requires JDK 17 and an Android SDK. Physical-device, production signing/approval, and company sandbox processing evidence remain later release gates.
+Android compilation requires a JDK compatible with the merchant application's Gradle and React Native stack; JDK 17 is the tested baseline. Physical-device, production signing/approval, and company sandbox processing evidence remain later release gates.
+
+## 📄 License and releases
+
+This project is licensed under the [MIT License](LICENSE). Release history and
+package assets are published through the repository's [GitHub Releases](https://github.com/Veritas-Quaesitor/vq-digitalwallet-reactnative-google/releases) page.
