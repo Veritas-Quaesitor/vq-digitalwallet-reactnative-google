@@ -1,0 +1,65 @@
+name: SDK CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - "feature/**"
+      - "fix/**"
+      - "docs/**"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Node ${{ matrix.node }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [22.x, 24.x]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - name: Use Node.js ${{ matrix.node }}
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Verify SDK
+        run: npm run verify
+      - name: Audit dependency graph
+        run: npm run check:audit
+
+  android:
+    name: Android / React Native ${{ matrix.react-native }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        react-native: [0.85.3, 0.86.2]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - name: Use Node.js 24
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24.x
+          cache: npm
+      - name: Use JDK 17
+        uses: actions/setup-java@3b0300d80f4176d9a38b9bbbe770b9ba47e49c8f # v5
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Select React Native matrix version
+        run: npm install --no-save --package-lock=false react-native@${{ matrix.react-native }} @react-native/babel-preset@${{ matrix.react-native }} @react-native/metro-config@${{ matrix.react-native }} @react-native/typescript-config@${{ matrix.react-native }}
+      - name: Build package
+        run: npm run build
+      - name: Compile exact packed artifact in Android consumer
+        run: npm run check:android-package

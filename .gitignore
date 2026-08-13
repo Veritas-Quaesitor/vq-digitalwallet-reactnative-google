@@ -1,0 +1,27 @@
+node_modules/
+lib/
+coverage/
+*.tgz
+artifacts/
+android/build/
+
+# Internal company test infrastructure. These complete applications, adapter
+# fixtures and their packaging/validation helpers are intentionally excluded
+# from this public SDK repository. Keep their local relocation markers when
+# moving each directory into its dedicated private test-harness repository.
+consumer-test-harness/
+example/
+scripts/check-consumer-harness.cjs
+scripts/check-phase6b-artifacts.cjs
+scripts/package-consumer-harness.ps1
+scripts/package-phase6b.ps1
+scripts/check-go-backend.cjs
+scripts/start-payment-test-backend.ps1
+test/unit/example-harness.test.ts
+.idea/
+.vscode/
+*.iml
+.DS_Store
+*.tmp
+.scaffold-phase3/
+.scaffold-fabric/

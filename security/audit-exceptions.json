@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "approvedOn": "2026-08-10",
+  "expiresOn": "2026-09-09",
+  "scope": "React Native and Metro development/example tooling only; not included in the merchant package artifact.",
+  "rationale": "The current supported React Native 0.85/0.86 Metro graph transitively requires image-size, for which no patched npm release exists. Exposure is limited to denial of service while processing untrusted build-time images.",
+  "allowedAdvisorySources": [1138808, 1138809],
+  "allowedVulnerabilityNames": [
+    "@react-native/community-cli-plugin",
+    "@react-native/metro-config",
+    "@react-native/virtualized-lists",
+    "image-size",
+    "metro",
+    "metro-config",
+    "metro-transform-worker",
+    "react-native"
+  ]
+}

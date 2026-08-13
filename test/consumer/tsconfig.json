@@ -1,0 +1,10 @@
+{
+  "extends": "../../node_modules/@react-native/typescript-config/tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "paths": {},
+    "strict": true,
+    "types": ["react", "react-native"]
+  },
+  "include": ["merchant-checkout.tsx"]
+}

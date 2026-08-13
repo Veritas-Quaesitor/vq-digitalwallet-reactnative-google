@@ -1,0 +1,10 @@
+* text=auto
+*.bat text eol=crlf
+*.gradle text eol=lf
+*.js text eol=lf
+*.json text eol=lf
+*.kt text eol=lf
+*.mjs text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+example/android/gradlew text eol=lf

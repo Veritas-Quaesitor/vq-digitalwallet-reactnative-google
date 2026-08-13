@@ -1,0 +1,62 @@
+buildscript {
+  ext.VqDigitalwalletReactnativeGoogle = [
+    kotlinVersion: "2.0.21",
+    minSdkVersion: 23,
+    compileSdkVersion: 36
+  ]
+
+  ext.getExtOrDefault = { prop ->
+    if (rootProject.ext.has(prop)) {
+      return rootProject.ext.get(prop)
+    }
+
+    return VqDigitalwalletReactnativeGoogle[prop]
+  }
+
+  repositories {
+    google()
+    mavenCentral()
+  }
+
+  dependencies {
+    classpath "com.android.tools.build:gradle:8.7.2"
+    // noinspection DifferentKotlinGradleVersion
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${getExtOrDefault('kotlinVersion')}"
+  }
+}
+
+
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
+
+apply plugin: "com.facebook.react"
+
+android {
+  namespace "com.veritasquaesitor.vqgooglepay"
+
+  compileSdkVersion getExtOrDefault("compileSdkVersion")
+
+  defaultConfig {
+    minSdkVersion getExtOrDefault("minSdkVersion")
+    def googlePayEnvironment = rootProject.findProperty("VQ_GOOGLE_PAY_ENVIRONMENT") ?: "TEST"
+    if (!(googlePayEnvironment in ["TEST", "PRODUCTION"])) {
+      throw new GradleException("VQ_GOOGLE_PAY_ENVIRONMENT must be TEST or PRODUCTION")
+    }
+    buildConfigField "String", "GOOGLE_PAY_ENVIRONMENT", "\"${googlePayEnvironment}\""
+  }
+
+  buildFeatures {
+    buildConfig true
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_17
+    targetCompatibility JavaVersion.VERSION_17
+  }
+}
+
+dependencies {
+  implementation "com.facebook.react:react-android"
+  implementation "androidx.activity:activity-ktx:1.13.0"
+  implementation "com.google.android.gms:play-services-wallet:20.0.0"
+}
