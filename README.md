@@ -7,7 +7,7 @@
 
 Android-only React Native SDK for merchants accepting Google Pay through Veritas Quaesitor.
 
-> **Release status:** `0.1.0` is a pre-release SDK. Package integrity, isolated-consumer installation, Android build verification, CI checks, and Google Pay TEST and UAT flows have been verified. Production Google Pay approval/signing and final release sign-off remain required before production use.
+> **Release status:** `0.1.0` is released and validated through Google Pay TEST and UAT. Package integrity, isolated-consumer installation, Android build verification, and CI checks have passed. Consumers remain responsible for validating their own Google Pay, gateway, certificate, and deployment configuration before use in their environment.
 
 ## ✨ Features
 
