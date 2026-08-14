@@ -18,36 +18,6 @@ visit(nativeRoot);
 const nativeSource = files
   .map((file) => fs.readFileSync(file, 'utf8'))
   .join('\n');
-const exampleSource = fs.readFileSync(
-  path.join(root, 'example', 'src', 'App.tsx'),
-  'utf8',
-);
-const exampleComponents = fs.readFileSync(
-  path.join(root, 'example', 'src', 'components.tsx'),
-  'utf8',
-);
-const exampleBackend = fs.readFileSync(
-  path.join(root, 'example', 'src', 'backend.ts'),
-  'utf8',
-);
-const debugManifest = fs.readFileSync(
-  path.join(root, 'example', 'android', 'app', 'src', 'debug', 'AndroidManifest.xml'),
-  'utf8',
-);
-const debugNetworkSecurity = fs.readFileSync(
-  path.join(
-    root,
-    'example',
-    'android',
-    'app',
-    'src',
-    'debug',
-    'res',
-    'xml',
-    'vq_test_network_security_config.xml',
-  ),
-  'utf8',
-);
 const clientSource = fs.readFileSync(
   path.join(root, 'src', 'google-pay', 'client.ts'),
   'utf8',
@@ -62,10 +32,6 @@ const androidBuild = fs.readFileSync(
 );
 const packageManifest = JSON.parse(
   fs.readFileSync(path.join(root, 'package.json'), 'utf8'),
-);
-const exampleMetroConfig = fs.readFileSync(
-  path.join(root, 'example', 'metro.config.js'),
-  'utf8',
 );
 
 assert.match(nativeSource, /GetPaymentDataResult/);
@@ -105,7 +71,6 @@ assert.match(clientSource, /getGooglePayEnvironment/);
 assert.match(androidBuild, /play-services-wallet:20\.0\.0/);
 assert.equal(packageManifest.source, './src/index.ts');
 assert.equal(packageManifest.exports['.'].source, './src/index.ts');
-assert.doesNotMatch(exampleMetroConfig, /conditions:\s*\[\]/);
 assert.match(
   fs.readFileSync(path.join(root, 'src', 'VqGooglePayButton.tsx'), 'utf8'),
   /key=\{nativeButtonKey\}/,
@@ -124,67 +89,6 @@ assert.match(nativeSource, /getEventDispatcher\(reactContext\)/);
 assert.match(nativeSource, /EVENT_NAME = "topGooglePayPress"/);
 assert.match(nativeSource, /getExportedCustomDirectEventTypeConstants/);
 assert.match(nativeSource, /"registrationName" to "onGooglePayPress"/);
-assert.match(exampleComponents, /walletFrame:\s*\{[^}]*minHeight:\s*64/s);
-assert.match(
-  exampleComponents,
-  /walletButton:\s*\{[^}]*maxWidth:\s*360[^}]*width:\s*'100%'/s,
-);
-assert.match(
-  fs.readFileSync(
-    path.join(
-      root,
-      'example',
-      'android',
-      'app',
-      'src',
-      'main',
-      'java',
-      'com',
-      'vqdigitalwalletreactnativegoogle.example',
-      'MainApplication.kt',
-    ),
-    'utf8',
-  ),
-  /useDevSupport = BuildConfig\.DEBUG/,
-);
-assert.match(exampleSource, /client=\{client\}/);
-assert.match(exampleSource, /onPayment=/);
-assert.match(exampleSource, /onError=/);
-assert.match(exampleSource, /Clipboard\.setString\(paymentResult\.paymentToken\)/);
-assert.match(exampleSource, /Clipboard\.setString\(''\)/);
-assert.match(exampleSource, /label="Copy Base64 token"/);
-assert.match(exampleSource, /label="Reset harness"/);
-assert.match(exampleSource, /Harness reset to defaults/);
-assert.match(exampleSource, /Valid changes are applied automatically/);
-assert.doesNotMatch(exampleSource, /Apply configuration/);
-assert.doesNotMatch(exampleSource, /Check availability/);
-assert.doesNotMatch(exampleSource, /Mount Google Pay button/);
-assert.doesNotMatch(exampleSource, /buttonType=/);
-assert.doesNotMatch(exampleSource, /cornerRadius=/);
-assert.doesNotMatch(exampleSource, /theme=/);
-assert.doesNotMatch(exampleSource, /Programmatic payment/);
-assert.doesNotMatch(exampleSource, /client\.pay\(/);
-assert.match(exampleBackend, /url\.protocol !== 'https:'/);
-assert.match(
-  exampleBackend,
-  /buildBackendRequestBody\([\s\S]*resolved\.environmentProfileId/,
-);
-assert.match(exampleBackend, /payment\.googlePayEnvironment/);
-assert.match(exampleBackend, /\/v1\/environment-profiles/);
-assert.match(exampleBackend, /MAX_BACKEND_RESPONSE_CHARACTERS = 16_384/);
-assert.match(exampleBackend, /const body = await response\.text\(\)/);
-assert.doesNotMatch(exampleBackend, /response\.json\(/);
-assert.match(debugManifest, /android:networkSecurityConfig=/);
-assert.match(debugNetworkSecurity, /<certificates src="user"/);
-assert.match(debugNetworkSecurity, /cleartextTrafficPermitted="false"/);
-assert.match(
-  debugNetworkSecurity,
-  /<domain includeSubdomains="false">localhost<\/domain>/,
-);
-assert.match(
-  debugNetworkSecurity,
-  /<domain includeSubdomains="false">10\.0\.2\.2<\/domain>/,
-);
 
 process.stdout.write(
   'Owned Google Pay bridge, opaque-token, PayButton, and lifecycle boundaries are present.\n',

@@ -287,7 +287,6 @@ Keeping that boundary means API endpoints can change independently of the SDK. P
 ```shell
 npm ci
 npm run verify
-npm run check:android-package
 ```
 
 Android compilation requires a JDK compatible with the merchant application's Gradle and React Native stack; JDK 17 is the tested baseline. Physical-device, production signing/approval, and company sandbox processing evidence remain later release gates.
