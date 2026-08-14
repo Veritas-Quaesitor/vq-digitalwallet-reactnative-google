@@ -37,8 +37,6 @@
     "check:generated": "node scripts/check-generated.cjs",
     "check:native-source": "node scripts/check-android-foundation.cjs",
     "check:audit": "node scripts/check-audit.cjs",
-    "build:android": "node scripts/build-android.cjs",
-    "check:android-package": "node scripts/check-android-package.cjs",
     "verify": "npm run check:source && npm run check:native-source && npm run lint && npm run check:types && npm run test:characterization && npm run test:coverage && npm run build && npm run check:consumer-types && npm run check:generated && npm run check:package"
   },
   "repository": {
